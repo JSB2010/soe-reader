@@ -10,6 +10,7 @@ type Doc = Omit<
 > & { shareUrl: string };
 type Settings = {
   local: boolean;
+  origin: string;
   authConfigured: boolean;
   timezone: string;
   voices: string[];
@@ -164,7 +165,10 @@ export default function Dashboard() {
                 </button>
               </>
             ) : settings?.authConfigured ? (
-              <a className="button primary" href="/api/auth/login">
+              <a
+                className="button primary"
+                href={`${settings.origin}/api/auth/login`}
+              >
                 Sign in with Google
               </a>
             ) : (

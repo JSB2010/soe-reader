@@ -174,6 +174,7 @@ async function handler(request: Request, path: string[]) {
   if (route === "config" && method === "GET")
     return json({
       local: cfg.local,
+      origin: cfg.origin,
       authConfigured: cfg.local || !!(cfg.clientId && cfg.clientSecret),
       voices: cfg.voices,
       timezone: cfg.timezone,
