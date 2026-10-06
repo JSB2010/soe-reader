@@ -1,0 +1,26 @@
+name: Checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: node scripts/check-package.mjs
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run setup:local
+      - run: npm run worker:local > /tmp/soe-worker.log 2>&1 &
+      - run: npm run test:e2e

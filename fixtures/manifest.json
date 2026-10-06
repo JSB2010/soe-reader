@@ -1,0 +1,545 @@
+{
+  "extractionVersion": 1,
+  "coordinateSystem": "pdf-user-space",
+  "pages": [
+    {
+      "page": 1,
+      "width": 612,
+      "height": 792,
+      "rotation": 0
+    },
+    {
+      "page": 2,
+      "width": 612,
+      "height": 792,
+      "rotation": 0
+    }
+  ],
+  "segments": [
+    {
+      "id": "4e241d44cef518002cec0a66059d4d8d",
+      "page": 1,
+      "text": "Reading & reasoning Practice assessment | Digital PDF fixture",
+      "rects": [
+        [
+          54,
+          727.8212890625,
+          284.04600000000005,
+          750.8212890625
+        ],
+        [
+          54,
+          702.9580078125,
+          253.07799999999992,
+          713.9580078125
+        ]
+      ],
+      "itemIndices": [
+        0,
+        2
+      ],
+      "audio": "audio/4e241d44cef518002cec0a66059d4d8d.mp3"
+    },
+    {
+      "id": "3a9c9ce27db1b1480e8151296ebf826a",
+      "page": 1,
+      "text": "Directions: Click a question or answer choice to hear it.",
+      "rects": [
+        [
+          54,
+          654.86328125,
+          346.1040000000001,
+          666.86328125
+        ]
+      ],
+      "itemIndices": [
+        4
+      ],
+      "audio": "audio/3a9c9ce27db1b1480e8151296ebf826a.mp3"
+    },
+    {
+      "id": "f4e4afeaae1fda1c8b5d9589f301d38d",
+      "page": 1,
+      "text": "1. Dr. Rivera measures a circle with radius 3.14 cm. Read the question carefully, then choose the statement supported by the data.",
+      "rects": [
+        [
+          54,
+          609.86328125,
+          380.77200000000016,
+          621.86328125
+        ],
+        [
+          54,
+          592.86328125,
+          418.21200000000044,
+          604.86328125
+        ]
+      ],
+      "itemIndices": [
+        5,
+        6
+      ],
+      "audio": "audio/f4e4afeaae1fda1c8b5d9589f301d38d.mp3"
+    },
+    {
+      "id": "674725e136632b1cf309e07b7599dd2b",
+      "page": 1,
+      "text": "A. The radius is greater than 3 cm.",
+      "rects": [
+        [
+          70,
+          551.86328125,
+          254.08000000000007,
+          563.86328125
+        ]
+      ],
+      "itemIndices": [
+        7
+      ],
+      "audio": "audio/674725e136632b1cf309e07b7599dd2b.mp3"
+    },
+    {
+      "id": "536d7eff1dfdf3923e6d42076fd71584",
+      "page": 1,
+      "text": "B. The radius is exactly 3 cm.",
+      "rects": [
+        [
+          70,
+          527.86328125,
+          226.72000000000006,
+          539.86328125
+        ]
+      ],
+      "itemIndices": [
+        8
+      ],
+      "audio": "audio/536d7eff1dfdf3923e6d42076fd71584.mp3"
+    },
+    {
+      "id": "89fad55d0b5e1ef3ee7d601c2cef40e0",
+      "page": 1,
+      "text": "C. The radius is less than 3 cm.",
+      "rects": [
+        [
+          70,
+          503.86328125,
+          238.0600000000001,
+          515.86328125
+        ]
+      ],
+      "itemIndices": [
+        9
+      ],
+      "audio": "audio/89fad55d0b5e1ef3ee7d601c2cef40e0.mp3"
+    },
+    {
+      "id": "8799fc795f036c86b7b0ce3f856aadaf",
+      "page": 1,
+      "text": "D. The diameter is less than the radius.",
+      "rects": [
+        [
+          70,
+          479.86328125,
+          278.75200000000007,
+          491.86328125
+        ]
+      ],
+      "itemIndices": [
+        10
+      ],
+      "audio": "audio/8799fc795f036c86b7b0ce3f856aadaf.mp3"
+    },
+    {
+      "id": "abf38586b823234bb8d38cb1751bd4b8",
+      "page": 1,
+      "text": "2. Read the passage before answering.",
+      "rects": [
+        [
+          54,
+          428.86328125,
+          263.448,
+          440.86328125
+        ]
+      ],
+      "itemIndices": [
+        11
+      ],
+      "audio": "audio/abf38586b823234bb8d38cb1751bd4b8.mp3"
+    },
+    {
+      "id": "62ed6a24c71347a030b99a35fcc4755c",
+      "page": 1,
+      "text": "Rain fell overnight. By morning, the garden soil was damp.",
+      "rects": [
+        [
+          54,
+          400.86328125,
+          364.12800000000016,
+          412.86328125
+        ]
+      ],
+      "itemIndices": [
+        12
+      ],
+      "audio": "audio/62ed6a24c71347a030b99a35fcc4755c.mp3"
+    },
+    {
+      "id": "1c10131439ade93841de7a9aa4ecfa9c",
+      "page": 1,
+      "text": "The students observed the garden and recorded their findings.",
+      "rects": [
+        [
+          54,
+          382.86328125,
+          385.51200000000017,
+          394.86328125
+        ]
+      ],
+      "itemIndices": [
+        13
+      ],
+      "audio": "audio/1c10131439ade93841de7a9aa4ecfa9c.mp3"
+    },
+    {
+      "id": "80c2816b81bb28e4f9fbc8de46b0eeeb",
+      "page": 1,
+      "text": "A. The garden was dry in the morning.",
+      "rects": [
+        [
+          70,
+          341.86328125,
+          273.4240000000001,
+          353.86328125
+        ]
+      ],
+      "itemIndices": [
+        14
+      ],
+      "audio": "audio/80c2816b81bb28e4f9fbc8de46b0eeeb.mp3"
+    },
+    {
+      "id": "f8ca5b994e0f2c1333f1295452d11722",
+      "page": 1,
+      "text": "B. The soil was damp after rain.",
+      "rects": [
+        [
+          70,
+          317.86328125,
+          238.73200000000006,
+          329.86328125
+        ]
+      ],
+      "itemIndices": [
+        15
+      ],
+      "audio": "audio/f8ca5b994e0f2c1333f1295452d11722.mp3"
+    },
+    {
+      "id": "353d2bb992a8ed26f6444ef0abf23447",
+      "page": 1,
+      "text": "C. No one observed the garden.",
+      "rects": [
+        [
+          70,
+          293.86328125,
+          240.76,
+          305.86328125
+        ]
+      ],
+      "itemIndices": [
+        16
+      ],
+      "audio": "audio/353d2bb992a8ed26f6444ef0abf23447.mp3"
+    },
+    {
+      "id": "de7e927ee0290f29fd065a1bd16bee4f",
+      "page": 1,
+      "text": "3. Check the literal equation in teacher preview: x^2 + 4 = 13.",
+      "rects": [
+        [
+          54,
+          237.86328125,
+          379.1280000000001,
+          249.86328125
+        ]
+      ],
+      "itemIndices": [
+        17
+      ],
+      "audio": "audio/de7e927ee0290f29fd065a1bd16bee4f.mp3"
+    },
+    {
+      "id": "813b9189839f00ef2549001944476143",
+      "page": 1,
+      "text": "Read the passage before answering.",
+      "rects": [
+        [
+          54,
+          195.86328125,
+          250.10399999999998,
+          207.86328125
+        ]
+      ],
+      "itemIndices": [
+        18
+      ],
+      "audio": "audio/813b9189839f00ef2549001944476143.mp3"
+    },
+    {
+      "id": "1be01fe36faa9a9fb32cc57abdf201b4",
+      "page": 1,
+      "text": "Page 1 of 2",
+      "rects": [
+        [
+          54,
+          49.052734375,
+          105.15,
+          59.052734375
+        ]
+      ],
+      "itemIndices": [
+        20
+      ],
+      "audio": "audio/1be01fe36faa9a9fb32cc57abdf201b4.mp3"
+    },
+    {
+      "id": "db06104c558006428ad09706cdf62ba1",
+      "page": 2,
+      "text": "Two-column questions",
+      "rects": [
+        [
+          54,
+          727.8212890625,
+          304.47,
+          750.8212890625
+        ]
+      ],
+      "itemIndices": [
+        0
+      ],
+      "audio": "audio/db06104c558006428ad09706cdf62ba1.mp3"
+    },
+    {
+      "id": "dbf7835ad1b15b85bcb37eb5ce27f719",
+      "page": 2,
+      "text": "4. Which value is a decimal?",
+      "rects": [
+        [
+          54,
+          648.9580078125,
+          193.38099999999997,
+          659.9580078125
+        ]
+      ],
+      "itemIndices": [
+        2
+      ],
+      "audio": "audio/dbf7835ad1b15b85bcb37eb5ce27f719.mp3"
+    },
+    {
+      "id": "16e510ed3c1fd0528fecab53da84f53a",
+      "page": 2,
+      "text": "A. 3.14",
+      "rects": [
+        [
+          54,
+          615.9580078125,
+          88.859,
+          626.9580078125
+        ]
+      ],
+      "itemIndices": [
+        3
+      ],
+      "audio": "audio/16e510ed3c1fd0528fecab53da84f53a.mp3"
+    },
+    {
+      "id": "eb9d557381342a6dfd02df8990a132ef",
+      "page": 2,
+      "text": "B. 314",
+      "rects": [
+        [
+          54,
+          582.9580078125,
+          85.80099999999999,
+          593.9580078125
+        ]
+      ],
+      "itemIndices": [
+        4
+      ],
+      "audio": "audio/eb9d557381342a6dfd02df8990a132ef.mp3"
+    },
+    {
+      "id": "a85fc6f8866297d60f65e8aeadc6f592",
+      "page": 2,
+      "text": "C. 31",
+      "rects": [
+        [
+          54,
+          549.9580078125,
+          80.28999999999999,
+          560.9580078125
+        ]
+      ],
+      "itemIndices": [
+        5
+      ],
+      "audio": "audio/a85fc6f8866297d60f65e8aeadc6f592.mp3"
+    },
+    {
+      "id": "4d65f1b5a7ee4c381efe2840f6e0d478",
+      "page": 2,
+      "text": "D. 3",
+      "rects": [
+        [
+          54,
+          516.9580078125,
+          74.17399999999999,
+          527.9580078125
+        ]
+      ],
+      "itemIndices": [
+        6
+      ],
+      "audio": "audio/4d65f1b5a7ee4c381efe2840f6e0d478.mp3"
+    },
+    {
+      "id": "dc3f319613e6abf958a4947b10df3e08",
+      "page": 2,
+      "text": "Read the passage before answering.",
+      "rects": [
+        [
+          54,
+          483.9580078125,
+          233.76199999999994,
+          494.9580078125
+        ]
+      ],
+      "itemIndices": [
+        7
+      ],
+      "audio": "audio/dc3f319613e6abf958a4947b10df3e08.mp3"
+    },
+    {
+      "id": "7e785da1584151fd77519632a9785972",
+      "page": 2,
+      "text": "Page 2 of 2",
+      "rects": [
+        [
+          54,
+          49.052734375,
+          105.15,
+          59.052734375
+        ]
+      ],
+      "itemIndices": [
+        15
+      ],
+      "audio": "audio/7e785da1584151fd77519632a9785972.mp3"
+    },
+    {
+      "id": "77d01ef2422908e6fffd13cad1a97577",
+      "page": 2,
+      "text": "5. Which claim uses evidence?",
+      "rects": [
+        [
+          323,
+          648.9580078125,
+          473.99699999999996,
+          659.9580078125
+        ]
+      ],
+      "itemIndices": [
+        8
+      ],
+      "audio": "audio/77d01ef2422908e6fffd13cad1a97577.mp3"
+    },
+    {
+      "id": "8aa14044e9583966505e0ef04d9d0edf",
+      "page": 2,
+      "text": "A. Soil was damp after rain.",
+      "rects": [
+        [
+          323,
+          615.9580078125,
+          457.49699999999996,
+          626.9580078125
+        ]
+      ],
+      "itemIndices": [
+        9
+      ],
+      "audio": "audio/8aa14044e9583966505e0ef04d9d0edf.mp3"
+    },
+    {
+      "id": "90222561fcbf32f6ae878443ffbd6be9",
+      "page": 2,
+      "text": "B. Soil is always damp.",
+      "rects": [
+        [
+          323,
+          582.9580078125,
+          436.09099999999995,
+          593.9580078125
+        ]
+      ],
+      "itemIndices": [
+        10
+      ],
+      "audio": "audio/90222561fcbf32f6ae878443ffbd6be9.mp3"
+    },
+    {
+      "id": "0838a84f7e939a005748746bf53b1ed6",
+      "page": 2,
+      "text": "C. Rain never falls.",
+      "rects": [
+        [
+          323,
+          549.9580078125,
+          415.917,
+          560.9580078125
+        ]
+      ],
+      "itemIndices": [
+        11
+      ],
+      "audio": "audio/0838a84f7e939a005748746bf53b1ed6.mp3"
+    },
+    {
+      "id": "463b38a576709505d5816723d219069a",
+      "page": 2,
+      "text": "D. Gardens need no water.",
+      "rects": [
+        [
+          323,
+          516.9580078125,
+          455.0659999999999,
+          527.9580078125
+        ]
+      ],
+      "itemIndices": [
+        12
+      ],
+      "audio": "audio/463b38a576709505d5816723d219069a.mp3"
+    },
+    {
+      "id": "ef7b26c0527518ba2ebef0faaa3e51ac",
+      "page": 2,
+      "text": "Read the passage before answering.",
+      "rects": [
+        [
+          323,
+          483.9580078125,
+          502.76199999999994,
+          494.9580078125
+        ]
+      ],
+      "itemIndices": [
+        13
+      ],
+      "audio": "audio/ef7b26c0527518ba2ebef0faaa3e51ac.mp3"
+    }
+  ],
+  "warnings": []
+}

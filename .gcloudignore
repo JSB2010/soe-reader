@@ -1,0 +1,12 @@
+.gcloudignore
+.git
+.next
+.next-dev
+node_modules
+.env*
+.data
+test-results
+playwright-report
+*.tsbuildinfo
+.DS_Store
+public/pdfjs

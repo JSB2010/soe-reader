@@ -1,0 +1,49 @@
+{
+  "name": "soe-reader",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0",
+    "postinstall": "node scripts/copy-pdf-assets.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "fixture": "node --import tsx scripts/create-fixture.ts",
+    "worker:local": "node --import tsx scripts/local-worker.ts",
+    "setup:local": "node --import tsx scripts/setup-local.ts",
+    "check": "npm run typecheck && npm test && npm run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "9.3.1",
+    "@google-cloud/storage": "8.2.0",
+    "@google-cloud/tasks": "7.2.1",
+    "@google-cloud/text-to-speech": "7.1.1",
+    "@napi-rs/canvas": "0.1.80",
+    "google-auth-library": "^10.5.0",
+    "luxon": "^3.7.2",
+    "next": "16.3.8",
+    "pdfjs-dist": "6.4.299",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "pdf-lib": "^1.17.1",
+    "prettier": "3.9.9",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,11 @@
+node_modules
+.next
+.next-dev
+.data
+.git
+test-results
+playwright-report
+public/pdfjs
+fixtures/manifest.json
+package-lock.json
+next-env.d.ts

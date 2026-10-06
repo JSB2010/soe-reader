@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.next-dev/
+.data/
+.env*
+!.env.example
+*.tsbuildinfo
+test-results/
+playwright-report/
+coverage/
+.DS_Store
+public/pdfjs/
+fixtures/generated/

@@ -1,0 +1,10 @@
+node_modules
+.next
+.next-dev
+.git
+.env*
+.data
+test-results
+playwright-report
+fixtures/generated
+*.tsbuildinfo
