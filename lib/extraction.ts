@@ -1,6 +1,5 @@
 import { createHash } from "node:crypto";
-import { createRequire } from "node:module";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import type { TextItem } from "pdfjs-dist/types/src/display/api";
 import { config } from "./config";
 import { AppError, type Manifest, type Rect, type Segment } from "./model";
@@ -202,8 +201,7 @@ export function segmentsFromItems(
 }
 export async function extractPdf(bytes: Buffer): Promise<Manifest> {
   const cfg = config(),
-    require = createRequire(import.meta.url),
-    pdfRoot = dirname(require.resolve("pdfjs-dist/package.json"));
+    pdfRoot = join(process.cwd(), "public", "pdfjs");
   // The canvas package supplies DOMMatrix / Path2D used by PDF.js's maintained Node adapter.
   const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
   const loading = pdfjs.getDocument({
