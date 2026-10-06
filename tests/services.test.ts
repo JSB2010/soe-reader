@@ -77,6 +77,18 @@ test("durable batches reuse completed audio, duplicate deliveries and stale vers
   await db.tombstone(doc.id, doc.ownerId);
   await processTask(task);
   assert.equal((await db.get(doc.id))?.status, "deleted");
+  assert.equal(await hasAsset(pdfPath(doc)), false);
+  // Simulate the last in-flight write arriving after the synchronous delete sweep.
+  await putAsset(
+    `${basePath(doc)}/${manifest.segments[0].audio}`,
+    firstAudio,
+    "audio/mpeg",
+  );
+  await processTask(task);
+  assert.equal(
+    await hasAsset(`${basePath(doc)}/${manifest.segments[0].audio}`),
+    false,
+  );
 });
 test("concurrent duplicate task cannot steal a current lease", async () => {
   const doc = document({

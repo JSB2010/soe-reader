@@ -13,7 +13,13 @@ import {
   type ReaderDocument,
 } from "./model";
 import { extractPdf } from "./extraction";
-import { hasAsset, readAsset, putAsset, fixtureAudio } from "./assets";
+import {
+  hasAsset,
+  readAsset,
+  putAsset,
+  fixtureAudio,
+  deleteAssets,
+} from "./assets";
 import { enqueue } from "./tasks";
 let speech: TextToSpeechClient | undefined;
 export async function verifyTask(request: Request) {
@@ -76,9 +82,13 @@ export async function processTask(task: Task) {
   if (
     !current ||
     current.version !== task.version ||
-    ["ready", "deleted", "failed"].includes(current.status)
+    ["ready", "failed"].includes(current.status)
   )
     return;
+  if (current.status === "deleted") {
+    await deleteAssets(`documents/${current.id}`);
+    return;
+  }
   const leased = await db.update(task.documentId, (d) => {
     if (
       d.version !== task.version ||
@@ -99,18 +109,24 @@ export async function processTask(task: Task) {
   });
   if (!leased || leased.leaseId !== leaseId) return;
   let count = leased.completedSegments;
+  let stage = "manifest-check";
   try {
     let manifest: Manifest;
     if (await hasAsset(manifestPath(leased)))
       manifest = JSON.parse((await readAsset(manifestPath(leased))).toString());
     else {
-      manifest = await extractPdf(await readAsset(pdfPath(leased)));
+      stage = "pdf-download";
+      const pdfBytes = await readAsset(pdfPath(leased));
+      stage = "pdf-extraction";
+      manifest = await extractPdf(pdfBytes);
+      stage = "manifest-write";
       await putAsset(
         manifestPath(leased),
         JSON.stringify(manifest),
         "application/json",
       );
     }
+    stage = "quota-reservation";
     await db.reserveCharacters(
       leased.id,
       leased.version,
@@ -126,6 +142,7 @@ export async function processTask(task: Task) {
       };
     });
     const missing = [];
+    stage = "audio-check";
     for (const segment of manifest.segments)
       if (!(await hasAsset(`${basePath(leased)}/${segment.audio}`)))
         missing.push(segment);
@@ -135,10 +152,12 @@ export async function processTask(task: Task) {
       const latest = await db.get(leased.id);
       if (!latest) return;
       guard(latest, task.version, leaseId);
+      stage = "speech-synthesis";
       const audio = await synthesize(segment.text, leased.voice);
       const after = await db.get(leased.id);
       if (!after) return;
       guard(after, task.version, leaseId);
+      stage = "audio-write";
       await putAsset(
         `${basePath(leased)}/${segment.audio}`,
         audio,
@@ -169,7 +188,35 @@ export async function processTask(task: Task) {
       };
     });
   } catch (e) {
-    if (e instanceof AppError && e.status === 409) return;
+    const storageStage = [
+      "manifest-check",
+      "pdf-download",
+      "manifest-write",
+      "audio-check",
+      "audio-write",
+    ].includes(stage);
+    console.error(
+      JSON.stringify({
+        event: "processing_failed",
+        stage,
+        category: (e as Error).name,
+        code: (e as { code?: string | number }).code || null,
+        // Storage diagnostics contain trusted object paths, never PDF text or bearer URLs.
+        diagnostic: storageStage
+          ? (e as Error).message.slice(0, 500)
+          : undefined,
+      }),
+    );
+    if (e instanceof AppError && e.status === 409) {
+      const latest = await db.get(leased.id);
+      if (
+        !latest ||
+        latest.status === "deleted" ||
+        latest.version !== task.version
+      )
+        await deleteAssets(basePath(leased));
+      return;
+    }
     const permanent = e instanceof AppError && e.status === 422;
     const exhausted = leased.attempts >= 8;
     await db.update(leased.id, (d) => {

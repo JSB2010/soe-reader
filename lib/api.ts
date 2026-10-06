@@ -412,7 +412,17 @@ async function handler(request: Request, path: string[]) {
     }
     if (path.length === 2 && method === "DELETE") {
       await store().tombstone(doc.id, doc.ownerId);
-      await deleteAssets(`documents/${doc.id}`);
+      // Persist cleanup before delivery ends. A storage outage cannot lose deletion work.
+      await enqueue({
+        documentId: doc.id,
+        version: doc.version,
+        generation: randomUUID(),
+      });
+      try {
+        await deleteAssets(`documents/${doc.id}`);
+      } catch {
+        return json({ deleted: true, cleanupQueued: true }, 202);
+      }
       return json({ deleted: true });
     }
     if (path[2] === "disable" && path.length === 3 && method === "POST") {
