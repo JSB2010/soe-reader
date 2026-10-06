@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import { AppError } from "./model";
+import { DEFAULT_VOICES } from "./voices";
 export function config() {
   const local = process.env.APP_MODE === "local";
   if (
@@ -35,7 +36,7 @@ export function config() {
     clientId: process.env.GOOGLE_OAUTH_CLIENT_ID || "",
     clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || "",
     timezone: process.env.DEFAULT_TIMEZONE || "America/Denver",
-    voices: (process.env.TTS_VOICES || "en-US-Standard-C,en-US-Standard-D")
+    voices: (process.env.TTS_VOICES || DEFAULT_VOICES.join(","))
       .split(",")
       .map((v) => v.trim()),
     maxUpload: num("MAX_UPLOAD_BYTES", 12 * 1024 * 1024),

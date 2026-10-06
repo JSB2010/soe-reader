@@ -7,6 +7,7 @@ export type Segment = {
   rects: Rect[];
   itemIndices: number[];
   audio: string;
+  durationSeconds?: number;
 };
 export type Manifest = {
   extractionVersion: 1;

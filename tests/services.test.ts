@@ -64,6 +64,14 @@ test("durable batches reuse completed audio, duplicate deliveries and stale vers
   const ready = (await db.get(doc.id))!;
   assert.equal(ready.status, "ready");
   assert.equal(ready.completedSegments, manifest.segments.length);
+  const timedManifest: Manifest = JSON.parse(
+    (await readAsset(manifestPath(doc))).toString(),
+  );
+  assert.ok(
+    timedManifest.segments.every(
+      (s) => s.durationSeconds && s.durationSeconds > 0,
+    ),
+  );
   for (const s of manifest.segments)
     assert.ok(await hasAsset(`${basePath(doc)}/${s.audio}`));
   assert.deepEqual(

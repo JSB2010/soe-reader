@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "SOE Reader",
+  title: "Safe Online Exam Reader",
   description: "Assessment PDFs with cached speech and timed access.",
+  robots: { index: false, follow: false },
 };
 export default function RootLayout({
   children,

@@ -48,3 +48,11 @@ PDF.js 6.4.299 is pinned for extraction and viewing. Coordinates are PDF user-sp
 Geometry first reconstructs lines, detects a two-column arrangement, and forms logical blocks. Question/answer labels always begin a new block. Paper Voice's MIT sentence-boundary heuristic preserves abbreviations and decimals; its academic content-removal/reflow is not used. Repeated passages are retained. Long blocks split to bounded clips; adjacent split clips can share a highlighted block and remain accessible using passage navigation. Very complex layouts need teacher preview. Scanned/partially textless pages are rejected; OCR is outside the MVP.
 
 Playback uses one media element. Every click pauses and replaces its source, aborting the old media request, then calls `play()` directly from the user gesture. A generation counter fences late play promises. Pause/stop invalidate pending completions. Speed is local media playback rate; no resynthesis occurs.
+
+## Continuous reading and playback
+
+The original PDF pages form one continuously scrollable document. Page shells keep the correct dimensions while PDF.js renders pages near the scroll viewport and releases off-screen canvases. Fit uses the current viewer width and each page's rotation; manual zoom and rotation apply across the document.
+
+One media element serves both passage clicks and whole-document playback. Play starts at the beginning when idle, Pause resumes in place, and Stop resets the playhead. Clicking a passage plays that passage; it does not automatically read subsequent passages. Previous/next and ten-second skips are in the toolbar, alongside a document-wide seek slider. Metadata loading and playback promises use generation fences so old requests cannot restart audio. Policy failures, tab suspension and expiry stop the queue.
+
+Newly processed manifests include optional `durationSeconds` per cached MP3, computed from MPEG frames without a native decoder. This is backward compatible with existing manifests. Older documents use an explicitly approximate total until actual clip durations are measured during playback. No audio or progress is stored offline.

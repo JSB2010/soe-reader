@@ -99,7 +99,7 @@ const token = makeToken(),
     availableAt: now + 300000,
     expiresAt: now + 600000,
     timezone: "UTC",
-    voice: "en-US-Standard-C",
+    voice: process.env.SMOKE_VOICE || "en-US-Neural2-F",
     createdAt: now,
     updatedAt: now,
     pdfBytes: 1,
@@ -117,6 +117,7 @@ const token = makeToken(),
   };
 const usageId = `${doc.ownerId}:${new Date(now).toISOString().slice(0, 10)}`,
   prefix = `gs://${STORAGE_BUCKET}/documents/${doc.id}/`;
+let createdTaskName: string | undefined;
 const checks: Record<string, boolean | number> = {};
 await mkdir(".data/deploy", { recursive: true });
 try {
@@ -160,6 +161,7 @@ try {
   );
   if (!taskResponse.ok)
     throw new Error(`Task creation failed (${taskResponse.status}).`);
+  createdTaskName = (await taskResponse.json()).name;
   checks.realTaskCreated = true;
   let state: ReaderDocument | undefined;
   for (let n = 0; n < 60; n++) {
@@ -216,6 +218,11 @@ try {
   if (!clip.ok || (await clip.arrayBuffer()).byteLength < 100)
     throw new Error("Cached MP3 unavailable.");
   checks.cachedAudioDelivered = true;
+  checks.audioDurationsPresent = manifest.segments.every(
+    (s) => !!s.durationSeconds && s.durationSeconds > 0,
+  );
+  if (!checks.audioDurationsPresent)
+    throw new Error("New audio duration metadata is missing.");
   const wrongPath = await asset("audio/" + "0".repeat(32) + ".mp3");
   if (wrongPath.status !== 404)
     throw new Error("Changed audio path was not rejected.");
@@ -238,17 +245,19 @@ try {
         errors: string[] = [];
       page.on("pageerror", (e) => errors.push(e.message));
       await page.goto(`${APP_ORIGIN}/read#${token.token}`);
-      await expect(page.locator(".pdf-page > canvas")).toBeVisible();
+      await expect(page.locator(".speech-region").first()).toBeVisible();
       await page
         .getByRole("button", { name: /Read: 1\. Dr\. Rivera/ })
         .first()
         .click();
-      await expect(page.locator(".reader-status")).toContainText("Reading:");
+      await expect(
+        page.getByRole("button", { name: "Pause speech" }),
+      ).toBeVisible();
       await page.getByRole("button", { name: "Pause speech" }).click();
       await page.getByRole("button", { name: "Zoom in", exact: true }).click();
       await page.getByRole("button", { name: "Rotate page clockwise" }).click();
       await page.reload();
-      await expect(page.locator(".pdf-page > canvas")).toBeVisible();
+      await expect(page.locator(".speech-region").first()).toBeVisible();
       await page.screenshot({
         path: `/private/tmp/soe-cloud-reader-${name}.png`,
         fullPage: false,
@@ -256,7 +265,7 @@ try {
       if (errors.length) throw new Error(`Browser runtime errors in ${name}.`);
       checks[`${name}LivePlayback`] = true;
       await patch(doc.id, { enabled: false });
-      await expect(page.locator(".pdf-page > canvas")).toHaveCount(0, {
+      await expect(page.locator(".pdf-page canvas")).toHaveCount(0, {
         timeout: 12000,
       });
       checks[`${name}DisableClears`] = true;
@@ -270,7 +279,7 @@ try {
   try {
     const page = await expiryBrowser.newPage();
     await page.goto(`${APP_ORIGIN}/read#${token.token}`);
-    await expect(page.locator(".pdf-page > canvas")).toBeVisible();
+    await expect(page.locator(".speech-region").first()).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "This assessment has ended." }),
     ).toBeVisible({ timeout: 12000 });
@@ -284,7 +293,9 @@ try {
   )
     throw new Error("Expired content was delivered.");
   checks.expiryDenied = true;
-  checks.teacherOAuthConfigured = false; // An honest, separate gate; no synthetic teacher login.
+  checks.teacherOAuthConfigured = !!(
+    await (await fetch(APP_ORIGIN + "/api/health")).json()
+  ).authConfigured; // Configuration only; this test does not simulate Google login.
   await writeFile(
     ".data/deploy/cloud-smoke-result.json",
     JSON.stringify({ at: new Date().toISOString(), checks }, null, 2) + "\n",
@@ -303,5 +314,10 @@ try {
   } catch {}
   await cloud(`usage/${usageId}`, "DELETE").catch(() => {});
   await cloud(`documents/${doc.id}`, "DELETE").catch(() => {});
+  if (createdTaskName)
+    await fetch(`https://cloudtasks.googleapis.com/v2/${createdTaskName}`, {
+      method: "DELETE",
+      headers,
+    }).catch(() => {});
   console.log("Synthetic cloud fixture cleaned up.");
 }

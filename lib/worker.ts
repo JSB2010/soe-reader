@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { TextToSpeechClient } from "@google-cloud/text-to-speech";
 import { OAuth2Client } from "google-auth-library";
 import { config } from "./config";
+import { mp3Duration } from "./mp3";
 import { store } from "./store";
 import {
   AppError,
@@ -59,7 +60,7 @@ async function synthesize(text: string, voice: string) {
         {
           input: { text },
           voice: { languageCode: voice.slice(0, 5), name: voice },
-          audioConfig: { audioEncoding: "MP3", speakingRate: 1 },
+          audioConfig: { audioEncoding: "MP3" },
         },
         { timeout: 15000, retry: null },
       );
@@ -154,6 +155,7 @@ export async function processTask(task: Task) {
       guard(latest, task.version, leaseId);
       stage = "speech-synthesis";
       const audio = await synthesize(segment.text, leased.voice);
+      segment.durationSeconds = mp3Duration(audio);
       const after = await db.get(leased.id);
       if (!after) return;
       guard(after, task.version, leaseId);
@@ -169,6 +171,15 @@ export async function processTask(task: Task) {
         return { ...d, completedSegments: count, updatedAt: Date.now() };
       });
     }
+    stage = "manifest-write";
+    const current = await db.get(leased.id);
+    if (!current) return;
+    guard(current, task.version, leaseId);
+    await putAsset(
+      manifestPath(leased),
+      JSON.stringify(manifest),
+      "application/json",
+    );
     const ready = count === manifest.segments.length;
     if (ready) {
       for (const segment of manifest.segments)

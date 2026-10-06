@@ -1,6 +1,6 @@
-# SOE Reader
+# Safe Online Exam Reader
 
-SOE Reader turns digital assessment PDFs into a timed, anonymous reader with cached speech. Teachers sign in through their own Internal Google OAuth application, upload a PDF, preview the result, and share an access link. Students see the original PDF and click mapped passages to hear prerecorded audio.
+Safe Online Exam Reader turns digital assessment PDFs into a timed, anonymous reader with cached speech. Teachers sign in through their own Internal Google OAuth application, upload a PDF, preview the result, and share an access link. Students see the original PDF and click mapped passages to hear prerecorded audio, or use Play to read continuously through the assessment.
 
 The application is a standalone Next.js/React service, with an IAM-protected Cloud Run worker, Cloud Tasks, Firestore, private Cloud Storage, and Google Cloud Text-to-Speech. No institution domain, hosting URL, project ID, credentials, or teacher allowlist is embedded in the source.
 
@@ -43,7 +43,9 @@ npm run test:e2e
 
 Unit/service tests cover time boundaries, UTC conversion/DST ambiguity, ownership, token encryption and rotation, byte ranges, PDF segmentation/geometry, rapid-click media fencing, quotas, checkpoint reuse, task leases, duplicate deliveries, stale versions, malformed PDFs, and pages missing a text layer. Browser checks exercise upload-to-Ready, owner preview, actual MP3 playback, pause, zoom, rotation, page navigation, anonymous reload, Disable Now, and a second account.
 
-See [deployment](docs/DEPLOYMENT.md), [architecture and limits](docs/ARCHITECTURE.md), and [native SEB acceptance](docs/SEB-ACCEPTANCE.md).
+The student reader scrolls continuously through the original pages. Play starts at the beginning, Pause resumes, and Stop resets. Its toolbar includes a seek slider, ten-second rewind/forward, previous/next passages, speed, zoom, Fit to width and rotation. The dashboard uses native date pickers and time/zone dropdowns, searchable assessments, a copy-first editor and voice previews.
+
+See [voice choices](docs/VOICES.md), [deployment](docs/DEPLOYMENT.md), [architecture and limits](docs/ARCHITECTURE.md), and [native SEB acceptance](docs/SEB-ACCEPTANCE.md).
 
 ## Workflow
 
